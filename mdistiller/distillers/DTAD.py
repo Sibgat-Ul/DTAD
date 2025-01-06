@@ -19,16 +19,16 @@ class DTAD(Distiller):
         gamma (float): Importance for RMSE loss.
     """
     def __init__(
-        self, 
+        self,
+        student, teacher, cfg,
         initial_temperature=8.0, 
         min_temperature=1.0, 
         max_temperature=8,
         alpha=0.5,
         beta=0.9,
         gamma=0.5,
-        cfg=None
     ):
-        super(DTAD, self).__init__()
+        super(DTAD, self).__init__(student, teacher)
 
         self.cfg = cfg            
         self.current_temperature = initial_temperature
