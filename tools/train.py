@@ -105,9 +105,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
     cfg.merge_from_file(args.cfg)
     cfg.merge_from_list(args.opts)
-    cfg.freeze()
-
+    
     if args.epoch is not None:
         cfg.SOLVER.EPOCHS = args.epoch
+
+    cfg.freeze()
     
     main(cfg, args.resume, args.opts)
