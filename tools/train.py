@@ -98,7 +98,7 @@ if __name__ == "__main__":
     parser.add_argument("--cfg", type=str, default="")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("opts", default=None, nargs=argparse.REMAINDER)
-    parser.add_argument("epoch", default=None, type=int, default=None)
+    parser.add_argument("epoch", default=None, type=int)
 
     args = parser.parse_args()
     cfg.merge_from_file(args.cfg)
