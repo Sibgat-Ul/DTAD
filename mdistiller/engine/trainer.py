@@ -112,6 +112,16 @@ class BaseTrainer(object):
         # validate
         test_acc, test_acc_top5, test_loss = validate(self.val_loader, self.distiller)
 
+        if self.cfg.DISTILLER.TYPE != "NONE":
+            print(
+                log_msg(
+                    "Extra parameters of {}: {}\033[0m".format(
+                        self.cfg.DISTILLER.TYPE, self.distiller.module.get_extra_parameters()
+                    ),
+                    "INFO",
+                )
+            )
+            
         # log
         log_dict = OrderedDict(
             {
