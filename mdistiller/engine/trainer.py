@@ -167,12 +167,14 @@ class BaseTrainer(object):
         loss.backward()
         self.optimizer.step()
         train_meters["training_time"].update(time.time() - train_start_time)
+
         # collect info
         batch_size = image.size(0)
         acc1, acc5 = accuracy(preds, target, topk=(1, 5))
         train_meters["losses"].update(loss.cpu().detach().numpy().mean(), batch_size)
         train_meters["top1"].update(acc1[0], batch_size)
         train_meters["top5"].update(acc5[0], batch_size)
+
         # print info
         msg = "Epoch:{}| Time(data):{:.3f}| Time(train):{:.3f}| Loss:{:.4f}| Top-1:{:.3f}| Top-5:{:.3f}".format(
             epoch,
@@ -182,6 +184,7 @@ class BaseTrainer(object):
             train_meters["top1"].avg,
             train_meters["top5"].avg,
         )
+
         return msg
 
 

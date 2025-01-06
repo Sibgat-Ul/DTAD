@@ -174,3 +174,7 @@ CFG.DTKD.BETA = 1.0       # KD
 CFG.DTKD.CE_WEIGHT = 1.0  # CE
 CFG.DTKD.T = 4
 CFG.DTKD.WARMUP = 20
+
+# DTAD(Dynamic Temperature Annealed Distillation) CFG
+CFG.DTAD = CN()
+CFG.DTAD.LOSS = CN()

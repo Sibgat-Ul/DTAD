@@ -88,6 +88,7 @@ def main(cfg, resume, opts):
     trainer = trainer_dict[cfg.SOLVER.TRAINER](
         experiment_name, distiller, train_loader, val_loader, cfg
     )
+
     trainer.train(resume=resume)
 
 
@@ -98,14 +99,9 @@ if __name__ == "__main__":
     parser.add_argument("--cfg", type=str, default="")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("opts", default=None, nargs=argparse.REMAINDER)
-    parser.add_argument("epoch", default=None, type=int, default=None)
 
     args = parser.parse_args()
     cfg.merge_from_file(args.cfg)
     cfg.merge_from_list(args.opts)
     cfg.freeze()
-
-    if args.epoch is not None:
-        cfg.SOLVER.EPOCHS = args.epoch
-    
     main(cfg, args.resume, args.opts)
