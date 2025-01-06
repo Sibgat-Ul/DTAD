@@ -72,6 +72,7 @@ def main(cfg, resume, opts):
             distiller = distiller_dict[cfg.DISTILLER.TYPE](
                 model_student, model_teacher, cfg
             )
+
     distiller = torch.nn.DataParallel(distiller.cuda())
 
     if cfg.DISTILLER.TYPE != "NONE":

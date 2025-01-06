@@ -20,7 +20,7 @@ from .utils import (
 
 
 class BaseTrainer(object):
-    def __init__(self, experiment_name, distiller: Distiller, train_loader, val_loader, cfg):
+    def __init__(self, experiment_name, distiller: nn.DataParallel, train_loader, val_loader, cfg):
         self.cfg = cfg
         self.distiller = distiller
         self.train_loader = train_loader
@@ -120,7 +120,7 @@ class BaseTrainer(object):
                 "test_acc": test_acc,
                 "test_acc_top5": test_acc_top5,
                 "test_loss": test_loss,
-                "temperature": self.distiller.get_extra_parameters()["temperature"] if self.cfg.DISTILLER.TYPE == "DTAD" else 0,
+                "temperature": self.distiller.module.get_extra_parameters()["temperature"] if self.cfg.DISTILLER.TYPE == "DTAD" else 0
             }
         )
         self.log(lr, epoch, log_dict)
