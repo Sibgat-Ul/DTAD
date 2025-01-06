@@ -225,8 +225,8 @@ class DTAD(Distiller):
             self.update_temperature(
                 kwargs["epoch"], 
                 self.max_epoch, 
-                teacher_loss=teacher_loss, 
-                student_loss=loss
+                teacher_loss=teacher_loss.item(), 
+                student_loss=loss.item()
             )
 
         return student_logits, losses_dict
