@@ -35,8 +35,8 @@ class DTAD(Distiller):
         self.initial_temperature = initial_temperature
         self.min_temperature = min_temperature
         self.max_temperature = max_temperature
-        self.max_epoch = cfg.SOLVER.EPOCHS
-        self.warmup = cfg.SOLVER.WARMUP
+        self.max_epoch = cfg.DTAD.EPOCHS
+        self.warmup = cfg.DTAD.WARMUP
         
         # Tracking training dynamics
         self.loss_history = []
