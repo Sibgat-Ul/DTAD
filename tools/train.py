@@ -95,10 +95,10 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser("training for knowledge distillation.")
-    parser.add_argument("--cfg", type=str, default="")
-    parser.add_argument("--resume", action="store_true")
-    parser.add_argument("opts", default=None, nargs=argparse.REMAINDER)
-    parser.add_argument("epoch", default=None, type=int)
+    parser.add_argument("--cfg", type=str, default="", help="Path to the config file.")
+    parser.add_argument("--resume", action="store_true", help="Resume from the last checkpoint.")
+    parser.add_argument("--opts", default=None, nargs=argparse.REMAINDER, help="Additional options.")
+    parser.add_argument("--epoch", default=None, type=int, help="Number of epochs to train.")
 
     args = parser.parse_args()
     cfg.merge_from_file(args.cfg)
