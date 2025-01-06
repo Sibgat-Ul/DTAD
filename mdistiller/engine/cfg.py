@@ -178,3 +178,4 @@ CFG.DTKD.WARMUP = 20
 # DTAD(Dynamic Temperature Annealed Distillation) CFG
 CFG.DTAD = CN()
 CFG.DTAD.LOSS = CN()
+CFG.DTKD.WARMUP = 20
