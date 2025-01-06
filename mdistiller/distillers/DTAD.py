@@ -1,7 +1,6 @@
 import torch
 from torch import nn
 import torch.nn.functional as F
-
 from ._base import Distiller
 
 class DTAD(Distiller):
@@ -224,10 +223,18 @@ class DTAD(Distiller):
         with torch.no_grad():
             self.update_temperature(
                 kwargs["epoch"], 
-                self.max_epoch, 
                 teacher_loss=teacher_loss.item(), 
-                student_loss=loss.item()
+                student_loss=loss
             )
 
         return student_logits, losses_dict
-    
+
+    def get_extra_parameters(self):
+        """
+        Retrieve temperature value for logging purposes.
+
+        Returns:
+            dict: Extra parameters to log.
+        """
+
+        return {"temperature": self.get_temperature()}
