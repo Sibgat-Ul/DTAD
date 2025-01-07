@@ -84,8 +84,8 @@ class DTAD(Distiller):
         self.current_temperature = max(
             self.min_temperature, 
             min(
-                self.max_temperature*torch.exp(torch.tensor(-progress*.5, device="cuda")), 
-                0.1 + self.initial_temperature * scale_factor * adaptive_scale * torch.exp(torch.tensor(-progress*.5, device="cuda"))
+                self.max_temperature*torch.exp(torch.tensor(-progress*.3, device="cuda")), 
+                0.1 + self.initial_temperature * scale_factor * adaptive_scale * torch.exp(torch.tensor(-progress*.3, device="cuda"))
             
             )
         )
