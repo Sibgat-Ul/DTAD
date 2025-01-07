@@ -188,9 +188,9 @@ class BaseTrainer(object):
         train_meters["top5"].update(acc5[0], batch_size)
 
         # print info
-        msg = "Epoch:{}| Time(data):{:.3f}| Time(train):{:.3f}| Loss:{:.4f}| Top-1:{:.3f}| Top-5:{:.3f}".format(
+        msg = "Epoch:{} ({:.2f})| Time(train):{:.3f}| Loss:{:.4f}| Top-1:{:.3f}| Top-5:{:.3f}".format(
             epoch,
-            train_meters["data_time"].avg,
+            epoch/self.cfg.SOLVER.EPOCHS,
             train_meters["training_time"].avg,
             train_meters["losses"].avg,
             train_meters["top1"].avg,
