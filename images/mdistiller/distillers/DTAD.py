@@ -54,9 +54,9 @@ class DTAD(Distiller):
         """
         # Store loss and compute gradient information
         progress = current_epoch / self.max_epoch
-        scale_factor = 0.3 + torch.cos(
+        scale_factor = 0.5 + torch.cos(
             torch.pi * torch.tensor(
-                progress * 0.65, 
+                progress * 0.72, 
                 device="cuda"
             )
         )
@@ -76,8 +76,8 @@ class DTAD(Distiller):
         self.current_temperature = max(
             self.min_temperature, 
             min(
-                self.max_temperature*torch.exp(torch.tensor(-progress*.3, device="cuda")), 
-                0.1 + self.initial_temperature * scale_factor * adaptive_scale * torch.exp(torch.tensor(-progress*.3, device="cuda"))
+                self.max_temperature*torch.exp(torch.tensor(-progress*.4, device="cuda")), 
+                0.1 + self.initial_temperature * scale_factor * adaptive_scale * torch.exp(torch.tensor(-progress*.75, device="cuda"))
             
             )
         )
