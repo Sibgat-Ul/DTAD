@@ -62,8 +62,10 @@ class DTAD(Distiller):
         )
 
         window_size = 5
-        teacher_losses = torch.tensor(teacher_loss[window_size:], device='cuda')
-        student_losses = torch.tensor(student_loss[window_size:], device='cuda')
+        self.loss_history = self.loss_history[-window_size:]
+        recent_losses = self.loss_history
+        teacher_losses = torch.tensor([loss[0] for loss in recent_losses], device='cuda')
+        student_losses = torch.tensor([loss[1] for loss in recent_losses], device='cuda')
 
         teacher_loss = teacher_losses.mean()
         student_loss = student_losses.mean()
