@@ -208,7 +208,7 @@ class DTAD(Distiller):
         outputs = target
 
         combined_loss = self.combined_loss(student_logits, teacher_logits, outputs)
-        warmup = min(kwargs["epoch"] / 20, 1.0)
+        warmup = min(kwargs["epoch"] / 10, 1.0)
 
         loss = warmup * combined_loss
         losses_dict = {
