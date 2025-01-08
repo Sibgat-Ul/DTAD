@@ -35,7 +35,8 @@ class DTAD(Distiller):
         self.min_temperature = min_temperature
         self.max_temperature = max_temperature
         self.max_epoch = cfg.SOLVER.EPOCHS
-        self.warmup = cfg.DTAD.WARMUP
+        self.warmup = cfg.DTAD.WARMUP,
+        self.loss_history = []
         
         # Constants for importance
         self.alpha = alpha
@@ -60,6 +61,8 @@ class DTAD(Distiller):
                 device="cuda"
             )
         )
+
+        self.loss_history.append((teacher_loss, student_loss))
 
         window_size = 5
         self.loss_history = self.loss_history[-window_size:]
