@@ -24,6 +24,7 @@ import argparse
 import tempfile
 import urllib.request
 import zipfile
+import io
 
 URLLIB = urllib.request
 
