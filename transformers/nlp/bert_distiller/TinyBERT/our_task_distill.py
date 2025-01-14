@@ -29,14 +29,13 @@ from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
                               TensorDataset)
 from tqdm import tqdm, trange
 
-from LossManager import LossManagerDTAD
-from DTAD import DynamicTemperatureScheduler
 from torch.nn import CrossEntropyLoss, MSELoss
 from scipy.stats import pearsonr, spearmanr
 from sklearn.metrics import matthews_corrcoef, f1_score
 import torch.nn as nn
 import torch.nn.functional as F
 
+from transformer.DTAD import DynamicTemperatureScheduler
 from transformer.modeling import TinyBertForSequenceClassification
 from transformer.tokenization import BertTokenizer
 from transformer.optimization import BertAdam
@@ -929,12 +928,12 @@ def main():
                              t_total=num_train_optimization_steps)
         
         # Prepare loss functions
-        loss_manager = LossManagerDTAD(alpha=0.5, beta=0.5, gamma=0.5)
-        loss_mse = loss_manager.mse_loss
-        loss_combined = loss_manager.combined_loss
+        loss_mse = MSELoss()
         DTAD_nlp = DynamicTemperatureScheduler(
             initial_temperature=4,
+            max_temperature=4,
             max_epoch=args.num_train_epochs,
+            warmup=None
         )
 
         # Train and evaluate
