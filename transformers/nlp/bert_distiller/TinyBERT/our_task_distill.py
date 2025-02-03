@@ -1021,7 +1021,7 @@ def main():
 
                 else:
                     if output_mode == "classification":
-                        cls_loss = DTAD_nlp(epoch_, student_logits, teacher_logits, input_ids)
+                        cls_loss = DTAD_nlp(epoch_, student_logits, teacher_logits)
                     elif output_mode == "regression":
                         loss_mse = MSELoss()
                         cls_loss = loss_mse(student_logits.view(-1), label_ids.view(-1))
