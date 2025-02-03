@@ -2,31 +2,93 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class DynamicTemperatureScheduler(nn.Module):
-    """
-    Dynamic Temperature Scheduler for Knowledge Distillation.
+def _get_gt_mask(logits, target):
+    target = target.reshape(-1)
+    mask = torch.zeros_like(logits).scatter_(1, target.unsqueeze(1), 1).bool()
+    return mask
 
-    Args:
-        initial_temperature (float): Starting temperature value.
-        min_temperature (float): Minimum allowable temperature.
-        max_temperature (float): Maximum allowable temperature.
-        schedule_type (str): Type of temperature scheduling strategy.
-        loss_type (str): Type of loss to use (combined or general KD).
-        alpha (float): Importance for soft loss, 1-alpha for hard loss.
-        beta (float): Importance of cosine loss.
-        gamma (float): Importance for RMSE loss.
-    """
+def _get_other_mask(logits, target):
+    target = target.reshape(-1)
+    mask = torch.ones_like(logits).scatter_(1, target.unsqueeze(1), 0).bool()
+    return mask
+
+
+def cat_mask(t, mask1, mask2):
+    t1 = (t * mask1).sum(dim=1, keepdims=True)
+    t2 = (t * mask2).sum(1, keepdims=True)
+    rt = torch.cat([t1, t2], dim=1)
+    return rt
+
+def normalize(logit):
+    mean = logit.mean(dim=-1, keepdims=True)
+    stdv = logit.std(dim=-1, keepdims=True)
+    return (logit - mean) / (1e-7 + stdv)
+
+def dkd_loss(logits_student_in, logits_teacher_in, target, alpha, beta, temperature, logit_stand):
+    logits_student = normalize(logits_student_in) if logit_stand else logits_student_in
+    logits_teacher = normalize(logits_teacher_in) if logit_stand else logits_teacher_in
+
+    gt_mask = _get_gt_mask(logits_student, target)
+    other_mask = _get_other_mask(logits_student, target)
+    pred_student = F.softmax(logits_student / temperature, dim=1)
+    pred_teacher = F.softmax(logits_teacher / temperature, dim=1)
+    pred_student = cat_mask(pred_student, gt_mask, other_mask)
+    pred_teacher = cat_mask(pred_teacher, gt_mask, other_mask)
+    log_pred_student = torch.log(pred_student)
+    tckd_loss = (
+        F.kl_div(log_pred_student, pred_teacher, size_average=False)
+        * (temperature**2)
+        / target.shape[0]
+    )
+    pred_teacher_part2 = F.softmax(
+        logits_teacher / temperature - 1000.0 * gt_mask, dim=1
+    )
+    log_pred_student_part2 = F.log_softmax(
+        logits_student / temperature - 1000.0 * gt_mask, dim=1
+    )
+    nckd_loss = (
+        F.kl_div(log_pred_student_part2, pred_teacher_part2, size_average=False)
+        * (temperature**2)
+        / target.shape[0]
+    )
+    return alpha * tckd_loss + beta * nckd_loss
+
+class LossManager:
     def __init__(
-        self, 
-        initial_temperature=8.0, 
-        min_temperature=1.0, 
-        max_temperature=8,
-        max_epoch=50,
-        warmup=20,
-        loss_type="combined_loss",
-        alpha=0.5,
-        beta=0.5,
-        gamma=0.1,
+            self,
+            initial_temperature,
+            min_temperature
+    ):
+        self.current_temperature = initial_temperature
+        self.min_temperature = min_temperature
+
+    def normalize(self, logit):
+        mean = logit.mean(dim=-1, keepdims=True)
+        stdv = logit.std(dim=-1, keepdims=True)
+
+        return (logit - mean) / (1e-7 + stdv)
+
+    def kd_loss(self, logits_student_in, logits_teacher_in, logit_stand=True):
+        temperature = self.current_temperature
+
+        logits_student = self.normalize(logits_student_in) if logit_stand else logits_student_in
+        logits_teacher = self.normalize(logits_teacher_in) if logit_stand else logits_teacher_in
+        log_pred_student = F.log_softmax(logits_student / temperature, dim=1)
+
+        pred_teacher = F.softmax(logits_teacher / temperature, dim=1)
+        loss_kd = F.kl_div(log_pred_student, pred_teacher, reduction="none").sum(1).mean()
+        loss_kd *= temperature * temperature
+
+        return loss_kd
+
+class DynamicTemperatureScheduler(nn.Module):
+    def __init__(
+            self,
+            initial_temperature=8.0,
+            min_temperature=4.0,
+            max_temperature=8,
+            max_epoch=50,
+            warmup=20,
     ):
         super(DynamicTemperatureScheduler, self).__init__()
 
@@ -34,51 +96,39 @@ class DynamicTemperatureScheduler(nn.Module):
         self.initial_temperature = initial_temperature
         self.min_temperature = min_temperature
         self.max_temperature = max_temperature
-        self.loss_type = loss_type
         self.max_epoch = max_epoch
         self.warmup = warmup
-        
-        # Tracking training dynamics
-        self.loss_history = []
-        self.student_loss = []
+        self.logit_stand = False
+        self.loss_type = "kd"
 
         # Constants for importance
-        self.alpha = alpha
-        self.beta = beta
-        self.gamma = gamma
-        
+        self.loss_manager = LossManager(
+            initial_temperature,
+            min_temperature
+        )
+
     def update_temperature(self, current_epoch, loss_divergence):
-        """
-        Dynamically update temperature based on training dynamics.
+        progress = torch.tensor(current_epoch / self.max_epoch)
+        cosine_factor = 0.5 * (1 + torch.cos(torch.pi * progress))
+        # log_loss = torch.log(torch.tensor(loss_divergence))
+        adaptive_scale = loss_divergence / (loss_divergence + 1)
 
-        Args:
-            current_epoch (int): Current training epoch.
-            total_epochs (int): Total number of training epochs.
-            teacher_loss (float): Loss of teacher model.
-            student_loss (float): Loss of student model.
-        """
-        total_epochs = self.max_epoch
-        
-        # Cosine annealing with adaptive scaling
-        progress = current_epoch / total_epochs
-        scale_factor = 0.5 + torch.cos(
-            torch.pi * torch.tensor(
-                progress * 0.7, 
-                device="cuda"
-            )
+        if adaptive_scale > 1:
+            target_temperature = self.initial_temperature * cosine_factor * (adaptive_scale)
+        else:
+            target_temperature = self.initial_temperature * cosine_factor
+
+        target_temperature = torch.clamp(
+            target_temperature,
+            self.min_temperature,
+            self.max_temperature
         )
 
-        adaptive_scale = 0.5 + 0.7 * loss_divergence
-        
-        # Update temperature
-        self.current_temperature = max(
-            self.min_temperature, 
-            min(
-                self.max_temperature*torch.exp(torch.tensor(-progress*.4, device="cuda")), 
-                0.1 + self.initial_temperature * scale_factor * adaptive_scale * torch.exp(torch.tensor(-progress*.75, device="cuda"))
-            )
-        )
-        
+        momentum = 0.9
+        self.current_temperature = momentum * self.current_temperature + (1 - momentum) * target_temperature
+
+        self.loss_manager.current_temperature = self.current_temperature
+
     def get_temperature(self):
         """
         Retrieve current temperature value.
@@ -86,134 +136,81 @@ class DynamicTemperatureScheduler(nn.Module):
         Returns:
             float: Current dynamic temperature.
         """
-        
+
         return self.current_temperature
 
-    def cosine_loss(self, student_logits, teacher_logits):
+    def forward(self, epoch, student_logits, teacher_logits, outputs, loss_type="kd"):
         """
-        Compute cosine similarity loss between student and teacher logits.
+        Forward pass to compute the loss based on the specified loss type.
 
         Args:
             student_logits (torch.Tensor): Logits from student model.
             teacher_logits (torch.Tensor): Logits from teacher model.
-
-        Returns:
-            torch.Tensor: Cosine similarity loss.
-        """
-        
-        # Normalize logits
-        student_norm = F.normalize(student_logits, p=2, dim=1)
-        teacher_norm = F.normalize(teacher_logits, p=2, dim=1)
-        
-        # Compute cosine similarity loss
-        cosine_loss = 1 - F.cosine_similarity(student_norm, teacher_norm).mean()
-        return cosine_loss
-
-    def rmse_loss(self, student_logits, teacher_logits):
-        """
-        Compute Root Mean Square Error (RMSE) between student and teacher logits.
-
-        Args:
-            student_logits (torch.Tensor): Logits from student model.
-            teacher_logits (torch.Tensor): Logits from teacher model.
-
-        Returns:
-            torch.Tensor: RMSE loss.
-        """
-        
-        rmse = torch.sqrt(F.mse_loss(student_logits, teacher_logits))
-        return rmse
-        
-    def mae_loss(self, student_logits, teacher_logits):
-        """
-        Compute Root Mean Square Error (RMSE) between student and teacher logits.
-
-        Args:
-            student_logits (torch.Tensor): Logits from student model.
-            teacher_logits (torch.Tensor): Logits from teacher model.
-
-        Returns:
-            torch.Tensor: RMSE loss.
-        """
-        
-        rmse = torch.nn.L1Loss()(student_logits, teacher_logits)
-        return rmse
-
-    def hard_loss(self, student_logits, outputs):
-        """
-        Compute hard loss (cross-entropy) between student logits and true labels.
-
-        Args:
-            student_logits (torch.Tensor): Logits from student model.
             outputs (torch.Tensor): True labels.
 
         Returns:
-            torch.Tensor: Cross-entropy loss.
+            torch.Tensor: Computed loss.
         """
-        
-        return torch.nn.CrossEntropyLoss()(student_logits, outputs)
-    
-    def soft_distillation_loss(self, student_logits, teacher_logits):
-        """
-        Compute knowledge distillation loss with dynamic temperature.
+        loss_type = self.loss_type
 
-        Args:
-            student_logits (torch.Tensor): Logits from student model.
-            teacher_logits (torch.Tensor): Logits from teacher model.
+        if loss_type == "kd":
+            logits_student = student_logits
+            logits_teacher = teacher_logits
+            target = outputs
 
-        Returns:
-            torch.Tensor: Knowledge distillation loss.
-        """
-        soft_targets = F.softmax(teacher_logits / self.current_temperature, dim=1)
-        soft_predictions = F.log_softmax(student_logits / self.current_temperature, dim=1)
-        
-        loss = F.kl_div(soft_predictions, soft_targets, reduction='batchmean')
-        return loss
+            teacher_loss = F.cross_entropy(logits_teacher, target)
+            student_loss = F.cross_entropy(logits_student, target)
 
-    def combined_loss(self, student_logits, teacher_logits, outputs):
-        """Only include the additional losses (cosine and RMSE) here"""
-        # Cosine loss
-        cosine_loss = self.beta * self.cosine_loss(student_logits, teacher_logits)
-        # RMSE loss
-        rmse_loss = self.gamma * self.rmse(student_logits, teacher_logits)
-        return cosine_loss + rmse_loss
+            with torch.no_grad():
+                loss_divergence = teacher_loss.item() - student_loss.item()
 
-    def forward(self, epoch, student_logits, teacher_logits, outputs):
-        temp_ratio = (self.current_temperature - 1.0) / (3.0 - 1.0)
-        temp_ratio = max(0, min(1, temp_ratio))
-        
-        # Base losses (always present)
-        soft_loss = self.soft_distillation_loss(student_logits, teacher_logits)
-        
-        hard_loss = self.hard_loss(student_logits, outputs)
-        teacher_loss = self.hard_loss(teacher_logits, outputs)
-        
-        loss_divergence = teacher_loss - hard_loss
-        log_loss_divergence = torch.log(1 + torch.abs(loss_divergence))
-        
-        # Temperature-dependent weighting for soft vs hard
-        if self.current_temperature > 1:
-            soft_weight = self.alpha * temp_ratio + 0.15 * (1 - temp_ratio)
-            hard_weight = (1 - self.alpha) * temp_ratio + 0.85 * (1 - temp_ratio)
+            loss_ce = 0.1 * student_loss
+
+            loss_kd = 9 * self.loss_manager.kd_loss(
+                logits_student, logits_teacher, self.logit_stand
+            )
+
+            losses_dict = {
+                "loss_ce": loss_ce,
+                "loss_kd": loss_kd,
+            }
+
+            with torch.no_grad():
+                self.update_temperature(epoch, loss_divergence)
+
+            return sum([l.mean() for l in losses_dict.values()])
+
         else:
-            soft_weight = 0.15
-            hard_weight = 0.85
-            
-        # Additional losses only when temperature is higher
-        additional_losses = temp_ratio * self.combined_loss(student_logits, teacher_logits, outputs)
-        
-        with torch.no_grad():
-            self.update_temperature(
-                    current_epoch = epoch, 
-                    loss_divergence = log_loss_divergence 
-                )
-            
-        warmup = 1 if self.warmup == None else min(epoch / self.warmup, 1.0)
-        
-        total_loss = (
-            soft_weight * soft_loss + 
-            hard_weight * hard_loss + 
-            additional_losses
-        ) + log_loss_divergence
-        
-        return  warmup * total_loss
+            logits_student = student_logits
+            logits_teacher = teacher_logits
+            target = outputs
+
+            student_loss = F.cross_entropy(logits_student, target)
+            teacher_loss = F.cross_entropy(logits_teacher, target)
+
+            with torch.no_grad():
+                loss_divergence = teacher_loss.item() - student_loss.item()
+
+            # losses
+            loss_ce = 1.0 * student_loss
+
+            loss_dkd = min(epoch / self.warmup, 1.0) * dkd_loss(
+                logits_student,
+                logits_teacher,
+                target,
+                9.0 if self.logit_stand else 1.0,
+                18.0 if self.logit_stand else 8.0,
+                self.current_temperature,
+                self.logit_stand,
+            )
+
+            losses_dict = {
+                "loss_ce": loss_ce,
+                "loss_kd": loss_dkd,
+            }
+
+            with torch.no_grad():
+                self.update_temperature(epoch, loss_divergence)
+
+            return sum([l.mean() for l in losses_dict.values()])
+
