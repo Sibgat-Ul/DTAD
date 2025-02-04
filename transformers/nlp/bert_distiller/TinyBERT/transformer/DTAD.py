@@ -158,11 +158,11 @@ class DynamicTemperatureScheduler(nn.Module):
             logits_teacher = teacher_logits
             target = outputs
 
-            teacher_loss = F.cross_entropy(logits_teacher.view(-1), target.view(-1))
-            student_loss = F.cross_entropy(logits_student.view(-1), target.view(-1))
+            # teacher_loss = F.cross_entropy(logits_teacher.view(-1), target.view(-1))
+            student_loss = F.cross_entropy(logits_student.view(-1), logits_teacher.view(-1))
 
             with torch.no_grad():
-                loss_divergence = teacher_loss.item() - student_loss.item()
+                loss_divergence = student_loss.item()
 
             loss_ce = 0.1 * student_loss
 
