@@ -1020,7 +1020,10 @@ def main():
 
                 else:
                     if output_mode == "classification":
-                        cls_loss = DTAD_nlp.forward(epoch_, student_logits, teacher_logits, label_ids)
+                        print(student_logits)
+                        print(teacher_logits)
+                        print(label_ids)
+                        cls_loss = DTAD_nlp.forward(epoch_, student_logits.view(-1), teacher_logits, label_ids)
                     elif output_mode == "regression":
                         loss_mse = MSELoss()
                         cls_loss = loss_mse(student_logits.view(-1), label_ids.view(-1))
