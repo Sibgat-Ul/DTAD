@@ -936,7 +936,6 @@ def main():
             max_epoch=args.num_train_epochs,
             warmup=None
         )
-
         # Train and evaluate
         global_step = 0
         best_dev_acc = 0.0
@@ -1021,7 +1020,7 @@ def main():
 
                 else:
                     if output_mode == "classification":
-                        cls_loss = DTAD_nlp(epoch_, student_logits, teacher_logits, input_ids)
+                        cls_loss = DTAD_nlp.forward(epoch_, student_logits, teacher_logits, input_ids)
                     elif output_mode == "regression":
                         loss_mse = MSELoss()
                         cls_loss = loss_mse(student_logits.view(-1), label_ids.view(-1))
