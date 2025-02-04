@@ -159,7 +159,6 @@ class DynamicTemperatureScheduler(nn.Module):
             target = outputs
 
             softmax = nn.Softmax(dim=-1)
-            print(softmax(logits_teacher))
             teacher_loss = F.cross_entropy(softmax(logits_teacher), target)
             student_loss = F.cross_entropy(softmax(logits_student), target)
 
