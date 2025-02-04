@@ -1021,7 +1021,7 @@ def main():
 
                 else:
                     if output_mode == "classification":
-                        cls_loss = DTAD_nlp(epoch_, student_logits, teacher_logits)
+                        cls_loss = DTAD_nlp(epoch_, student_logits, teacher_logits, input_ids)
                     elif output_mode == "regression":
                         loss_mse = MSELoss()
                         cls_loss = loss_mse(student_logits.view(-1), label_ids.view(-1))
@@ -1067,6 +1067,13 @@ def main():
                     result['att_loss'] = att_loss
                     result['rep_loss'] = rep_loss
 
+                    print("-"*3 + "eval" + "-"*3)
+                    print(f"loss = {loss:.2f}\n"
+                          f"cls_loss = {cls_loss:.2f}\n"
+                          f"att_loss = {att_loss:.2f}\n"
+                          f"rep_loss = {rep_loss:.2f}\n"
+                          f"temp = {DTAD_nlp.current_temperature}")
+                    print("-" * 10)
                     result_to_file(result, output_eval_file)
 
                     if not args.pred_distill:
