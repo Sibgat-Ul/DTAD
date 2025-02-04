@@ -179,6 +179,7 @@ class DynamicTemperatureScheduler(nn.Module):
             with torch.no_grad():
                 self.update_temperature(epoch, loss_divergence)
 
+            self.loss_manager.current_temperature = self.current_temperature
             return sum([l.mean() for l in losses_dict.values()])
 
         else:
