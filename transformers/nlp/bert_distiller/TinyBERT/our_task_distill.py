@@ -930,7 +930,7 @@ def main():
         # Prepare loss functions
         loss_mse = MSELoss()
 
-        DTAD_nlp = DynamicTemperatureScheduler(
+        dtad_nlp = DynamicTemperatureScheduler(
             initial_temperature=4,
             max_temperature=4,
             max_epoch=args.num_train_epochs,
@@ -1020,7 +1020,7 @@ def main():
 
                 else:
                     if output_mode == "classification":
-                        cls_loss = DTAD_nlp.forward(epoch_, student_logits, teacher_logits, label_ids)
+                        cls_loss = dtad_nlp(epoch_, student_logits, teacher_logits, label_ids)
                     elif output_mode == "regression":
                         loss_mse = MSELoss()
                         cls_loss = loss_mse(student_logits.view(-1), label_ids.view(-1))
@@ -1071,7 +1071,7 @@ def main():
                           f"cls_loss = {cls_loss:.2f}\n"
                           f"att_loss = {att_loss:.2f}\n"
                           f"rep_loss = {rep_loss:.2f}\n"
-                          f"temp = {DTAD_nlp.current_temperature}")
+                          f"temp = {dtad_nlp.current_temperature}")
                     print("-" * 10)
                     result_to_file(result, output_eval_file)
 
