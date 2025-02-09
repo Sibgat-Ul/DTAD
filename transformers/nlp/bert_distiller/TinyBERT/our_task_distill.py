@@ -933,6 +933,7 @@ def main():
         dtad_nlp = DynamicTemperatureScheduler(
             initial_temperature=3,
             max_temperature=3,
+            min_temperature=1,
             max_epoch=args.num_train_epochs,
             warmup=None
         )
@@ -1067,13 +1068,15 @@ def main():
                     result['cls_loss'] = cls_loss
                     result['att_loss'] = att_loss
                     result['rep_loss'] = rep_loss
+                    result['temp'] = dtad_nlp.current_temperature
 
                     print("-"*3 + "eval" + "-"*3)
                     print(f"loss = {loss:.2f}\n"
                           f"cls_loss = {cls_loss:.2f}\n"
                           f"att_loss = {att_loss:.2f}\n"
                           f"rep_loss = {rep_loss:.2f}\n"
-                          f"temp = {dtad_nlp.current_temperature}")
+                          f"mcc = {result['mcc']:.2f}\n"
+                          f"temp = {result['temp']:.2f}")
                     print("-" * 10)
                     result_to_file(result, output_eval_file)
 
