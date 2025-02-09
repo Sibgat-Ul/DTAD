@@ -931,8 +931,8 @@ def main():
         loss_mse = MSELoss()
 
         dtad_nlp = DynamicTemperatureScheduler(
-            initial_temperature=4,
-            max_temperature=4,
+            initial_temperature=3,
+            max_temperature=3,
             max_epoch=args.num_train_epochs,
             warmup=None
         )
@@ -941,7 +941,8 @@ def main():
         best_dev_acc = 0.0
         output_eval_file = os.path.join(args.output_dir, "eval_results.txt")
 
-        for epoch_ in trange(int(args.num_train_epochs), desc="Epoch"):
+        for epoch_ in trange(int(args.num_train_epochs), desc="Epoch", leave=True, dynamic_ncols=True):
+
             tr_loss = 0.
             tr_att_loss = 0.
             tr_rep_loss = 0.
@@ -950,7 +951,8 @@ def main():
             student_model.train()
             nb_tr_examples, nb_tr_steps = 0, 0
 
-            for step, batch in enumerate(tqdm(train_dataloader, desc="Iteration", ascii=True)):
+            pbar = tqdm(train_dataloader, desc="Iteration", leave=False, dynamic_ncols=True)
+            for step, batch in enumerate(pbar):
                 batch = tuple(t.to(device) for t in batch)
 
                 input_ids, input_mask, segment_ids, label_ids, seq_lengths = batch
@@ -1137,8 +1139,8 @@ def main():
                             result_to_file(result, tmp_output_eval_file)
 
                             task_name = 'mnli'
-
                     student_model.train()
+            pbar.update()
 
 
 if __name__ == "__main__":
