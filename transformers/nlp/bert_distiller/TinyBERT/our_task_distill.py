@@ -30,13 +30,13 @@ import numpy as np
 import torch
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
                               TensorDataset)
-from tqdm import tqdm, trange
+# from tqdm import tqdm, trange
+from tqdm.notebook import tqdm, trange
 
 from torch.nn import CrossEntropyLoss, MSELoss
 from scipy.stats import pearsonr, spearmanr
 from sklearn.metrics import matthews_corrcoef, f1_score
-import torch.nn as nn
-import torch.nn.functional as F
+
 
 from transformer.DTAD import DynamicTemperatureScheduler
 from transformer.modeling import TinyBertForSequenceClassification
