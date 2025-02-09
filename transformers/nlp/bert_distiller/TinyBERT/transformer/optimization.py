@@ -272,7 +272,7 @@ class BertAdam(Optimizer):
 
                 # Decay the first and second moment running average coefficient
                 # In-place operations to update the averages at the same time
-                next_m.mul_(beta1).add_(other=1 - beta1, alpha=grad)
+                next_m.mul_(beta1).add_(other=grad, alpha=1 - beta1)
                 next_v.mul_(beta2).addcmul_(1 - beta2, grad, grad)
                 update = next_m / (next_v.sqrt() + group['e'])
 
