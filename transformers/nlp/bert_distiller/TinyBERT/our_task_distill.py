@@ -23,6 +23,9 @@ import os
 import random
 import sys
 
+import warnings
+warnings.filterwarnings('ignore')
+
 import numpy as np
 import torch
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
