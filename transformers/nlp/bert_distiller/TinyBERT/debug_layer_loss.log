@@ -205,3 +205,102 @@
 2025-02-09 16:26:40,600 ***** Eval results *****
 2025-02-09 16:26:40,600   eval_loss = 0.5492523249351617
 2025-02-09 16:26:40,600   mcc = 0.34961118667417307
+2025-02-09 20:26:16,746 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-09 20:26:16,912 device: cuda n_gpu: 1
+2025-02-09 20:26:16,933 Writing example 0 of 1043
+2025-02-09 20:26:16,933 *** Example ***
+2025-02-09 20:26:16,933 guid: dev-0
+2025-02-09 20:26:16,934 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-09 20:26:16,934 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:16,934 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:16,934 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:16,934 label: 1
+2025-02-09 20:26:16,934 label_id: 1
+2025-02-09 20:26:17,012 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-09 20:26:17,215 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny/pytorch_model.bin
+2025-02-09 20:26:17,405 loading model...
+2025-02-09 20:26:17,413 done!
+2025-02-09 20:26:17,426 ***** Running evaluation *****
+2025-02-09 20:26:17,426   Num examples = 1043
+2025-02-09 20:26:17,426   Batch size = 32
+2025-02-09 20:26:54,445 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-09 20:26:54,599 device: cuda n_gpu: 1
+2025-02-09 20:26:54,620 Writing example 0 of 1043
+2025-02-09 20:26:54,620 *** Example ***
+2025-02-09 20:26:54,620 guid: dev-0
+2025-02-09 20:26:54,620 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-09 20:26:54,620 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:54,620 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:54,620 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:54,620 label: 1
+2025-02-09 20:26:54,620 label_id: 1
+2025-02-09 20:26:54,694 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-09 20:26:54,895 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny/pytorch_model.bin
+2025-02-09 20:26:55,048 loading model...
+2025-02-09 20:26:55,055 done!
+2025-02-09 20:26:55,066 ***** Running evaluation *****
+2025-02-09 20:26:55,066   Num examples = 1043
+2025-02-09 20:26:55,066   Batch size = 32
+2025-02-09 20:26:55,865 ***** Eval results *****
+2025-02-09 20:26:55,865   eval_loss = 0.5608428346388268
+2025-02-09 20:26:55,865   mcc = 0.31908153035600473
