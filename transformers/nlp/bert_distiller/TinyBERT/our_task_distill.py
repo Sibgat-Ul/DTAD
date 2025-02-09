@@ -644,7 +644,6 @@ def do_eval(model, task_name, eval_dataloader,
         preds = np.squeeze(preds)
     result = compute_metrics(task_name, preds, eval_labels.numpy())
     result['eval_loss'] = eval_loss
-
     return result
 
 def main():
@@ -955,8 +954,7 @@ def main():
             student_model.train()
             nb_tr_examples, nb_tr_steps = 0, 0
 
-            pbar = tqdm(train_dataloader, desc="Iteration", leave=False, dynamic_ncols=True)
-            for step, batch in enumerate(pbar):
+            for step, batch in enumerate(tqdm(train_dataloader, desc="Iteration", leave=False, dynamic_ncols=True)):
                 batch = tuple(t.to(device) for t in batch)
 
                 input_ids, input_mask, segment_ids, label_ids, seq_lengths = batch
@@ -1072,15 +1070,13 @@ def main():
                     result['att_loss'] = att_loss
                     result['rep_loss'] = rep_loss
                     result['temp'] = dtad_nlp.current_temperature
-
-                    print("-"*3 + "eval" + "-"*3)
-                    print(f"loss = {loss:.2f}\n"
+                    tqdm.write(f"loss = {loss:.2f}\n"
                           f"cls_loss = {cls_loss:.2f}\n"
                           f"att_loss = {att_loss:.2f}\n"
                           f"rep_loss = {rep_loss:.2f}\n"
                           f"mcc = {result['mcc']:.2f}\n"
                           f"temp = {result['temp']:.2f}")
-                    print("-" * 10)
+
                     result_to_file(result, output_eval_file)
 
                     if not args.pred_distill:
@@ -1146,7 +1142,6 @@ def main():
 
                             task_name = 'mnli'
                     student_model.train()
-            pbar.update()
 
 
 if __name__ == "__main__":
