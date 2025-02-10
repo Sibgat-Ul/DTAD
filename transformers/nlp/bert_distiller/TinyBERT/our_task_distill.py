@@ -707,7 +707,7 @@ def main():
         nb_eval_steps = 0
         preds = []
 
-        for batch_ in tqdm(eval_dataloader, desc="Evaluating"):
+        for batch_ in tqdm(eval_dataloader, desc="Evaluating", position=0, leave=True):
             batch_ = tuple(t.to(device) for t in batch_)
             with torch.no_grad():
                 input_ids, input_mask, segment_ids, label_ids, seq_lengths = batch_
@@ -958,7 +958,7 @@ def main():
             student_model.train()
             nb_tr_examples, nb_tr_steps = 0, 0
 
-            pbar2 = tqdm(train_dataloader, desc=f"Epoch {epoch_+1} - Iteration", leave=False, dynamic_ncols=True, position=0)
+            pbar2 = tqdm(train_dataloader, desc=f"Epoch {epoch_+1} - Iteration", leave=True, dynamic_ncols=True, position=0)
             for step, batch in enumerate(pbar2):
                 batch = tuple(t.to(device) for t in batch)
 
