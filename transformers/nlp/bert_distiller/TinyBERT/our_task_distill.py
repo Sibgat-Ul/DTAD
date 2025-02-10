@@ -644,6 +644,7 @@ def do_eval(model, task_name, eval_dataloader,
         preds = np.squeeze(preds)
     result = compute_metrics(task_name, preds, eval_labels.numpy())
     result['eval_loss'] = eval_loss
+    print(result)
     return result
 
 def main():
