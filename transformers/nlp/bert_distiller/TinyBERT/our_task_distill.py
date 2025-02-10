@@ -606,47 +606,6 @@ def result_to_file(result, file_name):
             writer.write("%s = %s\n" % (key, str(result[key])))
 
 
-def do_eval(model, task_name, eval_dataloader,
-            device, output_mode, eval_labels, num_labels):
-    eval_loss = 0
-    nb_eval_steps = 0
-    preds = []
-
-    for batch_ in tqdm(eval_dataloader, desc="Evaluating"):
-        batch_ = tuple(t.to(device) for t in batch_)
-        with torch.no_grad():
-            input_ids, input_mask, segment_ids, label_ids, seq_lengths = batch_
-
-            logits, _, _ = model(input_ids, segment_ids, input_mask)
-
-        # create eval loss and other metric required by the task
-        if output_mode == "classification":
-            loss_fct = CrossEntropyLoss()
-            tmp_eval_loss = loss_fct(logits.view(-1, num_labels), label_ids.view(-1))
-        elif output_mode == "regression":
-            loss_fct = MSELoss()
-            tmp_eval_loss = loss_fct(logits.view(-1), label_ids.view(-1))
-
-        eval_loss += tmp_eval_loss.mean().item()
-        nb_eval_steps += 1
-        if len(preds) == 0:
-            preds.append(logits.detach().cpu().numpy())
-        else:
-            preds[0] = np.append(
-                preds[0], logits.detach().cpu().numpy(), axis=0)
-
-    eval_loss = eval_loss / nb_eval_steps
-
-    preds = preds[0]
-    if output_mode == "classification":
-        preds = np.argmax(preds, axis=1)
-    elif output_mode == "regression":
-        preds = np.squeeze(preds)
-    result = compute_metrics(task_name, preds, eval_labels.numpy())
-    result['eval_loss'] = eval_loss
-    print(result)
-    return result
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir",
@@ -741,6 +700,49 @@ def main():
     parser.add_argument('--temperature',
                         type=float,
                         default=1.)
+
+    def do_eval(model, task_name, eval_dataloader,
+                device, output_mode, eval_labels, num_labels):
+        eval_loss = 0
+        nb_eval_steps = 0
+        preds = []
+
+        for batch_ in tqdm(eval_dataloader, desc="Evaluating"):
+            batch_ = tuple(t.to(device) for t in batch_)
+            with torch.no_grad():
+                input_ids, input_mask, segment_ids, label_ids, seq_lengths = batch_
+
+                logits, _, _ = model(input_ids, segment_ids, input_mask)
+
+            # create eval loss and other metric required by the task
+            if output_mode == "classification":
+                loss_fct = CrossEntropyLoss()
+                tmp_eval_loss = loss_fct(logits.view(-1, num_labels), label_ids.view(-1))
+            elif output_mode == "regression":
+                loss_fct = MSELoss()
+                tmp_eval_loss = loss_fct(logits.view(-1), label_ids.view(-1))
+
+            eval_loss += tmp_eval_loss.mean().item()
+            nb_eval_steps += 1
+            if len(preds) == 0:
+                preds.append(logits.detach().cpu().numpy())
+            else:
+                preds[0] = np.append(
+                    preds[0], logits.detach().cpu().numpy(), axis=0)
+
+        eval_loss = eval_loss / nb_eval_steps
+
+        preds = preds[0]
+        if output_mode == "classification":
+            preds = np.argmax(preds, axis=1)
+        elif output_mode == "regression":
+            preds = np.squeeze(preds)
+        result = compute_metrics(task_name, preds, eval_labels.numpy())
+        result['eval_loss'] = eval_loss
+        if args.do_eval:
+            print(result)
+        return result
+
 
     args = parser.parse_args()
     logger.info('The args: {}'.format(args))
@@ -945,7 +947,7 @@ def main():
         best_dev_acc = 0.0
         output_eval_file = os.path.join(args.output_dir, "eval_results.txt")
 
-        for epoch_ in trange(int(args.num_train_epochs), desc="Epoch", leave=True, dynamic_ncols=True):
+        for epoch_ in trange(int(args.num_train_epochs), desc="Epoch", leave=True, dynamic_ncols=True, position=0):
 
             tr_loss = 0.
             tr_att_loss = 0.
@@ -955,7 +957,7 @@ def main():
             student_model.train()
             nb_tr_examples, nb_tr_steps = 0, 0
 
-            for step, batch in enumerate(tqdm(train_dataloader, desc=f"Epoch {epoch_+1} - Iteration", leave=False, dynamic_ncols=True)):
+            for step, batch in enumerate(tqdm(train_dataloader, desc=f"Epoch {epoch_+1} - Iteration", leave=False, dynamic_ncols=True, position=0)):
                 batch = tuple(t.to(device) for t in batch)
 
                 input_ids, input_mask, segment_ids, label_ids, seq_lengths = batch
@@ -1138,7 +1140,6 @@ def main():
 
                             task_name = 'mnli'
                     student_model.train()
-
 
 if __name__ == "__main__":
     main()
