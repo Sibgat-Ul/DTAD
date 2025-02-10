@@ -958,8 +958,8 @@ def main():
             student_model.train()
             nb_tr_examples, nb_tr_steps = 0, 0
 
-            pbar2 = enumerate(tqdm(train_dataloader, desc=f"Epoch {epoch_+1} - Iteration", leave=False, dynamic_ncols=True, position=0))
-            for step, batch in pbar2:
+            pbar2 = tqdm(train_dataloader, desc=f"Epoch {epoch_+1} - Iteration", leave=False, dynamic_ncols=True, position=0)
+            for step, batch in enumerate(pbar2):
                 batch = tuple(t.to(device) for t in batch)
 
                 input_ids, input_mask, segment_ids, label_ids, seq_lengths = batch
