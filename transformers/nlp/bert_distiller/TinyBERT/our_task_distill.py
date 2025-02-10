@@ -947,7 +947,7 @@ def main():
         best_dev_acc = 0.0
         output_eval_file = os.path.join(args.output_dir, "eval_results.txt")
 
-        for epoch_ in trange(int(args.num_train_epochs), desc="Epoch", leave=True, dynamic_ncols=True, position=0):
+        for epoch_ in range(int(args.num_train_epochs)):
 
             tr_loss = 0.
             tr_att_loss = 0.
@@ -957,7 +957,7 @@ def main():
             student_model.train()
             nb_tr_examples, nb_tr_steps = 0, 0
 
-            for step, batch in enumerate(tqdm(train_dataloader, desc=f"Epoch {epoch_+1} - Iteration", leave=False, dynamic_ncols=True, position=0)):
+            for step, batch in enumerate(train_dataloader):
                 batch = tuple(t.to(device) for t in batch)
 
                 input_ids, input_mask, segment_ids, label_ids, seq_lengths = batch
@@ -1140,6 +1140,7 @@ def main():
 
                             task_name = 'mnli'
                     student_model.train()
-
+                pbar2.update()
+            pbar1.update()
 if __name__ == "__main__":
     main()
