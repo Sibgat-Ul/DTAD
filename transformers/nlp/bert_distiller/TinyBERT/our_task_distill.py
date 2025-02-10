@@ -933,8 +933,8 @@ def main():
         loss_mse = MSELoss()
 
         dtad_nlp = DynamicTemperatureScheduler(
-            initial_temperature=3,
-            max_temperature=3,
+            initial_temperature=4,
+            max_temperature=4,
             min_temperature=1,
             max_epoch=args.num_train_epochs,
             warmup=None
