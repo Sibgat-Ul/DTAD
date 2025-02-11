@@ -707,7 +707,7 @@ def main():
         nb_eval_steps = 0
         preds = []
 
-        for batch_ in tqdm(eval_dataloader, desc="Evaluating", position=0, leave=True):
+        for batch_ in tqdm(eval_dataloader, desc="Evaluating"):
             batch_ = tuple(t.to(device) for t in batch_)
             with torch.no_grad():
                 input_ids, input_mask, segment_ids, label_ids, seq_lengths = batch_
@@ -938,7 +938,7 @@ def main():
         dtad_nlp = DynamicTemperatureScheduler(
             initial_temperature=4,
             max_temperature=4,
-            min_temperature=1,
+            min_temperature=2,
             max_epoch=args.num_train_epochs,
             warmup=None
         )
@@ -947,8 +947,7 @@ def main():
         best_dev_acc = 0.0
         output_eval_file = os.path.join(args.output_dir, "eval_results.txt")
 
-        pbar1 = trange(int(args.num_train_epochs), desc="Epoch", leave=True, dynamic_ncols=True, position=0)
-        for epoch_ in pbar1:
+        for epoch_ in trange(int(args.num_train_epochs), desc="Epoch", leave=True, dynamic_ncols=True, position=0):
 
             tr_loss = 0.
             tr_att_loss = 0.
@@ -958,8 +957,7 @@ def main():
             student_model.train()
             nb_tr_examples, nb_tr_steps = 0, 0
 
-            pbar2 = tqdm(train_dataloader, desc=f"Epoch {epoch_+1} - Iteration", leave=True, dynamic_ncols=True, position=0)
-            for step, batch in enumerate(pbar2):
+            for step, batch in enumerate(tqdm(train_dataloader, desc=f"Epoch {epoch_+1} - Iteration", leave=True, dynamic_ncols=True, position=0)):
                 batch = tuple(t.to(device) for t in batch)
 
                 input_ids, input_mask, segment_ids, label_ids, seq_lengths = batch
@@ -1142,7 +1140,5 @@ def main():
 
                             task_name = 'mnli'
                     student_model.train()
-                pbar2.update()
-            pbar1.update()
 if __name__ == "__main__":
     main()
