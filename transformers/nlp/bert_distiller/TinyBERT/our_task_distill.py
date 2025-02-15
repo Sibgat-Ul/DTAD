@@ -685,6 +685,18 @@ def main():
                         type=int,
                         default=1,
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
+    parser.add_argument('--init_temp',
+                        type=float,
+                        default=3.0)
+    parser.add_argument('--max_temp',
+                        type=float,
+                        default=4.0)
+    parser.add_argument('--min_temp',
+                        type=float,
+                        default=1.0)
+    parser.add_argument('--curve_len',
+                        type=float,
+                        default=0.5)
 
     # added arguments
     parser.add_argument('--aug_train',
@@ -936,10 +948,11 @@ def main():
         loss_mse = MSELoss()
 
         dtad_nlp = DynamicTemperatureScheduler(
-            initial_temperature=3,
-            max_temperature=3,
-            min_temperature=1,
+            initial_temperature=args.init_temp,
+            max_temperature=args.max_temp,
+            min_temperature=args.min_temp,
             max_epoch=args.num_train_epochs,
+            curve_len=args.curve_len,
             warmup=None
         )
         # Train and evaluate

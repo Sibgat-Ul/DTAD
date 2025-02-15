@@ -88,6 +88,7 @@ class DynamicTemperatureScheduler(nn.Module):
             min_temperature=4.0,
             max_temperature=8,
             max_epoch=50,
+            curve_len=0.5,
             warmup=20,
     ):
         super(DynamicTemperatureScheduler, self).__init__()
@@ -100,6 +101,7 @@ class DynamicTemperatureScheduler(nn.Module):
         self.warmup = warmup
         self.logit_stand = False
         self.loss_type = "kd"
+        self.curve_len = curve_len
 
         # Constants for importance
         self.loss_manager = LossManager(
@@ -109,7 +111,7 @@ class DynamicTemperatureScheduler(nn.Module):
 
     def update_temperature(self, current_epoch, loss_divergence):
         progress = torch.tensor(current_epoch / self.max_epoch)
-        cosine_factor = 0.5 * (1 + torch.cos(2*torch.pi * progress))
+        cosine_factor = 0.5 * (1 + torch.cos(self.curve_len*torch.pi * progress))
         # log_loss = torch.log(torch.tensor(loss_divergence))
         adaptive_scale = loss_divergence / (loss_divergence + 1)
 
