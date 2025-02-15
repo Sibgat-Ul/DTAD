@@ -694,7 +694,7 @@ def main():
     parser.add_argument('--min_temp',
                         type=float,
                         default=1.0)
-    parser.add_argument('--curve_len',
+    parser.add_argument('--curve_shape',
                         type=float,
                         default=0.5)
 
@@ -952,7 +952,7 @@ def main():
             max_temperature=args.max_temp,
             min_temperature=args.min_temp,
             max_epoch=args.num_train_epochs,
-            curve_len=args.curve_len,
+            curve_len=args.curve_shape,
             warmup=None
         )
         # Train and evaluate
