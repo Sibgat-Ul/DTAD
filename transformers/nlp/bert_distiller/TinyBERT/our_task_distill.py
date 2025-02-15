@@ -1086,7 +1086,16 @@ def main():
                     result['att_loss'] = att_loss
                     result['rep_loss'] = rep_loss
                     result['temp'] = dtad_nlp.current_temperature
-                    tqdm.write(f"loss: {loss:.2f} cls_loss: {cls_loss:.2f} att_loss: {att_loss:.2f} rep_loss: {rep_loss:.2f} mcc: {result['mcc']:.2f} {result['temp']:.2f}")
+
+                    if task_name in acc_tasks:
+                        tqdm.write(
+                            f"loss: {loss:.2f} cls_loss: {cls_loss:.2f} att_loss: {att_loss:.2f} rep_loss: {rep_loss:.2f} acc: {result['acc']:.2f} {result['temp']:.2f}")
+                    elif task_name in mcc_tasks:
+                        tqdm.write(
+                            f"loss: {loss:.2f} cls_loss: {cls_loss:.2f} att_loss: {att_loss:.2f} rep_loss: {rep_loss:.2f} mcc: {result['mcc']:.2f} {result['temp']:.2f}")
+                    else:
+                        tqdm.write(
+                            f"loss: {loss:.2f} cls_loss: {cls_loss:.2f} att_loss: {att_loss:.2f} rep_loss: {rep_loss:.2f} mcc: {result['mcc']:.2f} {result['temp']:.2f}")
 
                     result_to_file(result, output_eval_file)
 
