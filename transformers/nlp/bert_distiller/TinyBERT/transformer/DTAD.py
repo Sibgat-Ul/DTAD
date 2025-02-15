@@ -90,6 +90,7 @@ class DynamicTemperatureScheduler(nn.Module):
             max_epoch=50,
             curve_len=0.5,
             warmup=20,
+            emb_loss=False
     ):
         super(DynamicTemperatureScheduler, self).__init__()
 
@@ -102,6 +103,7 @@ class DynamicTemperatureScheduler(nn.Module):
         self.logit_stand = False
         self.loss_type = "kd"
         self.curve_len = curve_len
+        self.emb_loss = emb_loss
 
         # Constants for importance
         self.loss_manager = LossManager(
@@ -113,7 +115,7 @@ class DynamicTemperatureScheduler(nn.Module):
         progress = torch.tensor(current_epoch / self.max_epoch)
         cosine_factor = 0.5 * (1 + torch.cos(self.curve_len*torch.pi * progress))
         # log_loss = torch.log(torch.tensor(loss_divergence))
-        adaptive_scale = loss_divergence / (loss_divergence + 1)
+        # adaptive_scale = loss_divergence / (loss_divergence + 1)
 
         # if adaptive_scale > 1:
         #     target_temperature = self.initial_temperature * cosine_factor * (adaptive_scale)
@@ -155,7 +157,15 @@ class DynamicTemperatureScheduler(nn.Module):
         """
         loss_type = self.loss_type
 
-        if loss_type == "kd":
+        if self.emb_loss:
+            loss = F.mse_loss(student_logits/self.current_temperature, teacher_logits/self.current_temperature)
+            with torch.no_grad():
+                self.update_temperature(epoch, None)
+
+            self.loss_manager.current_temperature = self.current_temperature
+            return loss
+
+        elif loss_type == "kd":
             logits_student = student_logits
             logits_teacher = teacher_logits
             target = outputs
@@ -183,7 +193,6 @@ class DynamicTemperatureScheduler(nn.Module):
 
             self.loss_manager.current_temperature = self.current_temperature
             return sum([l.mean() for l in losses_dict.values()])
-
         else:
             logits_student = student_logits
             logits_teacher = teacher_logits
