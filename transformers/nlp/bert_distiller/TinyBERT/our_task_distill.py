@@ -1022,7 +1022,7 @@ def main():
                         )
 
                         tmp_loss = dtad_nlp(epoch_, student_att, teacher_att, label_ids, emb_loss=True)
-                        tmp_loss = loss_mse(student_att, teacher_att)
+                        # tmp_loss = loss_mse(student_att, teacher_att)
                         att_loss += tmp_loss
 
                     new_teacher_reps = [

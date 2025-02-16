@@ -143,7 +143,7 @@ class DynamicTemperatureScheduler(nn.Module):
 
         return self.current_temperature
 
-    def forward(self, epoch, student_logits, teacher_logits, outputs, loss_type="kd"):
+    def forward(self, epoch, student_logits, teacher_logits, outputs, emb_loss=False, loss_type="kd"):
         """
         Forward pass to compute the loss based on the specified loss type.
 
@@ -157,7 +157,7 @@ class DynamicTemperatureScheduler(nn.Module):
         """
         loss_type = self.loss_type
 
-        if self.emb_loss:
+        if emb_loss:
             loss = F.mse_loss(student_logits/self.current_temperature, teacher_logits/self.current_temperature)
             with torch.no_grad():
                 self.update_temperature(epoch, None)
