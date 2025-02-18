@@ -687,13 +687,13 @@ def main():
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
     parser.add_argument('--init_temp',
                         type=float,
-                        default=3.0)
+                        default=4.0)
     parser.add_argument('--max_temp',
                         type=float,
                         default=4.0)
     parser.add_argument('--min_temp',
                         type=float,
-                        default=1.0)
+                        default=2.0)
     parser.add_argument('--curve_shape',
                         type=float,
                         default=0.5)
