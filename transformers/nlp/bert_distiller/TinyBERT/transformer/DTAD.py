@@ -151,7 +151,6 @@ class DynamicTemperatureScheduler(nn.Module):
         Returns:
             torch.Tensor: Computed loss.
         """
-        loss_type = self.loss_type
 
         if loss_type == "emb":
             loss = F.mse_loss(student_logits/self.current_temperature, teacher_logits/self.current_temperature)

@@ -693,7 +693,7 @@ def main():
                         default=4.0)
     parser.add_argument('--min_temp',
                         type=float,
-                        default=2.0)
+                        default=1.0)
     parser.add_argument('--curve_shape',
                         type=float,
                         default=0.5)
@@ -1021,7 +1021,7 @@ def main():
                             teacher_att
                         )
 
-                        tmp_loss = dtad_nlp(epoch_, student_att, teacher_att, label_ids, emb_loss=True)
+                        tmp_loss = dtad_nlp(epoch_, student_att, teacher_att, label_ids, loss_type="emb")
                         # tmp_loss = loss_mse(student_att, teacher_att)
                         att_loss += tmp_loss
 
@@ -1041,7 +1041,7 @@ def main():
 
                 else:
                     if output_mode == "classification":
-                        cls_loss = dtad_nlp(epoch_, student_logits, teacher_logits, label_ids, emb_loss=False, loss_type="kd")
+                        cls_loss = dtad_nlp(epoch_, student_logits, teacher_logits, label_ids, loss_type="kd")
                     elif output_mode == "regression":
                         loss_mse = MSELoss()
                         cls_loss = loss_mse(student_logits.view(-1), label_ids.view(-1))
