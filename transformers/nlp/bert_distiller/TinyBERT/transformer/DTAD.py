@@ -115,7 +115,7 @@ class DynamicTemperatureScheduler(nn.Module):
 
     def update_temperature(self, current_epoch, loss_divergence):
         progress = torch.tensor(current_epoch / self.max_epoch)
-        cosine_factor = 0.5 * (1 + torch.cos(0.75 * torch.pi * progress))
+        cosine_factor = 0.5 * (1 + torch.cos(self.curve_len * torch.pi * progress))
 
         target_temperature = self.initial_temperature * cosine_factor
 
