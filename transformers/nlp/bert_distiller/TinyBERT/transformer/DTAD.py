@@ -96,8 +96,10 @@ class DynamicTemperatureScheduler(nn.Module):
 
         self.current_temperature = initial_temperature
         self.initial_temperature = initial_temperature
+
         self.min_temperature = min_temperature
         self.max_temperature = max_temperature
+
         self.max_epoch = max_epoch
         self.warmup = warmup
         self.logit_stand = False
@@ -113,14 +115,8 @@ class DynamicTemperatureScheduler(nn.Module):
 
     def update_temperature(self, current_epoch, loss_divergence):
         progress = torch.tensor(current_epoch / self.max_epoch)
-        cosine_factor = 0.5 * (1 + torch.cos(self.curve_len*torch.pi * progress))
-        # log_loss = torch.log(torch.tensor(loss_divergence))
-        # adaptive_scale = loss_divergence / (loss_divergence + 1)
+        cosine_factor = 0.5 * (1 + torch.cos(0.75 * torch.pi * progress))
 
-        # if adaptive_scale > 1:
-        #     target_temperature = self.initial_temperature * cosine_factor * (adaptive_scale)
-        # else:
-        #     target_temperature = self.initial_temperature * cosine_factor
         target_temperature = self.initial_temperature * cosine_factor
 
         target_temperature = torch.clamp(
@@ -143,7 +139,7 @@ class DynamicTemperatureScheduler(nn.Module):
 
         return self.current_temperature
 
-    def forward(self, epoch, student_logits, teacher_logits, outputs, emb_loss=False, loss_type="kd"):
+    def forward(self, epoch, student_logits, teacher_logits, outputs, loss_type="emb"):
         """
         Forward pass to compute the loss based on the specified loss type.
 
@@ -157,8 +153,9 @@ class DynamicTemperatureScheduler(nn.Module):
         """
         loss_type = self.loss_type
 
-        if emb_loss:
+        if loss_type == "emb":
             loss = F.mse_loss(student_logits/self.current_temperature, teacher_logits/self.current_temperature)
+
             with torch.no_grad():
                 self.update_temperature(epoch, None)
 
@@ -193,6 +190,7 @@ class DynamicTemperatureScheduler(nn.Module):
 
             self.loss_manager.current_temperature = self.current_temperature
             return sum([l.mean() for l in losses_dict.values()])
+
         else:
             logits_student = student_logits
             logits_teacher = teacher_logits
