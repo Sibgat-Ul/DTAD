@@ -1,0 +1,717 @@
+2025-02-09 16:03:41,207 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-09 16:03:41,372 device: cuda n_gpu: 1
+2025-02-09 16:03:56,933 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-09 16:03:57,087 device: cuda n_gpu: 1
+2025-02-09 16:04:33,693 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-09 16:04:33,840 device: cuda n_gpu: 1
+2025-02-09 16:04:33,860 Writing example 0 of 1043
+2025-02-09 16:04:33,860 *** Example ***
+2025-02-09 16:04:33,860 guid: dev-0
+2025-02-09 16:04:33,860 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-09 16:04:33,860 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:04:33,860 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:04:33,861 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:04:33,861 label: 1
+2025-02-09 16:04:33,861 label_id: 1
+2025-02-09 16:04:33,935 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-09 16:04:34,132 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny/pytorch_model.bin
+2025-02-09 16:04:34,308 loading model...
+2025-02-09 16:04:34,315 done!
+2025-02-09 16:04:34,327 ***** Running evaluation *****
+2025-02-09 16:04:34,327   Num examples = 1043
+2025-02-09 16:04:34,327   Batch size = 32
+2025-02-09 16:04:35,049 ***** Eval results *****
+2025-02-09 16:04:35,049   eval_loss = 0.5492523249351617
+2025-02-09 16:04:35,049   mcc = 0.34961118667417307
+2025-02-09 16:20:07,704 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-09 16:20:07,836 device: cuda n_gpu: 1
+2025-02-09 16:20:07,856 Writing example 0 of 1043
+2025-02-09 16:20:07,856 *** Example ***
+2025-02-09 16:20:07,856 guid: dev-0
+2025-02-09 16:20:07,856 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-09 16:20:07,856 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:20:07,856 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:20:07,856 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:20:07,856 label: 1
+2025-02-09 16:20:07,856 label_id: 1
+2025-02-09 16:20:07,930 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-09 16:20:08,130 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny/pytorch_model.bin
+2025-02-09 16:20:08,280 loading model...
+2025-02-09 16:20:08,288 done!
+2025-02-09 16:20:08,300 ***** Running evaluation *****
+2025-02-09 16:20:08,300   Num examples = 1043
+2025-02-09 16:20:08,300   Batch size = 32
+2025-02-09 16:20:09,010 ***** Eval results *****
+2025-02-09 16:20:09,010   eval_loss = 0.5492523249351617
+2025-02-09 16:20:09,010   mcc = 0.34961118667417307
+2025-02-09 16:25:33,185 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/ft_cola', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-09 16:25:33,325 device: cuda n_gpu: 1
+2025-02-09 16:25:33,351 Writing example 0 of 1043
+2025-02-09 16:25:33,351 *** Example ***
+2025-02-09 16:25:33,351 guid: dev-0
+2025-02-09 16:25:33,351 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-09 16:25:33,351 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:25:33,351 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:25:33,351 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:25:33,351 label: 1
+2025-02-09 16:25:33,351 label_id: 1
+2025-02-09 16:25:33,426 Model config {
+  "_name_or_path": "textattack/bert-base-uncased-CoLA",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "classifier_dropout": null,
+  "finetuning_task": "cola",
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-09 16:25:34,886 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/ft_cola/pytorch_model.bin
+2025-02-09 16:25:35,335 loading model...
+2025-02-09 16:25:35,381 done!
+2025-02-09 16:25:35,381 Weights of TinyBertForSequenceClassification not initialized from pretrained model: ['fit_dense.weight', 'fit_dense.bias']
+2025-02-09 16:25:35,462 ***** Running evaluation *****
+2025-02-09 16:25:35,462   Num examples = 1043
+2025-02-09 16:25:35,462   Batch size = 32
+2025-02-09 16:25:40,299 ***** Eval results *****
+2025-02-09 16:25:40,299   eval_loss = 0.42400999683322327
+2025-02-09 16:25:40,299   mcc = 0.5577353353156735
+2025-02-09 16:26:39,284 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-09 16:26:39,415 device: cuda n_gpu: 1
+2025-02-09 16:26:39,436 Writing example 0 of 1043
+2025-02-09 16:26:39,436 *** Example ***
+2025-02-09 16:26:39,437 guid: dev-0
+2025-02-09 16:26:39,437 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-09 16:26:39,437 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:26:39,437 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:26:39,437 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 16:26:39,437 label: 1
+2025-02-09 16:26:39,437 label_id: 1
+2025-02-09 16:26:39,511 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-09 16:26:39,713 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny/pytorch_model.bin
+2025-02-09 16:26:39,861 loading model...
+2025-02-09 16:26:39,869 done!
+2025-02-09 16:26:39,880 ***** Running evaluation *****
+2025-02-09 16:26:39,880   Num examples = 1043
+2025-02-09 16:26:39,880   Batch size = 32
+2025-02-09 16:26:40,600 ***** Eval results *****
+2025-02-09 16:26:40,600   eval_loss = 0.5492523249351617
+2025-02-09 16:26:40,600   mcc = 0.34961118667417307
+2025-02-09 20:26:16,746 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-09 20:26:16,912 device: cuda n_gpu: 1
+2025-02-09 20:26:16,933 Writing example 0 of 1043
+2025-02-09 20:26:16,933 *** Example ***
+2025-02-09 20:26:16,933 guid: dev-0
+2025-02-09 20:26:16,934 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-09 20:26:16,934 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:16,934 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:16,934 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:16,934 label: 1
+2025-02-09 20:26:16,934 label_id: 1
+2025-02-09 20:26:17,012 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-09 20:26:17,215 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny/pytorch_model.bin
+2025-02-09 20:26:17,405 loading model...
+2025-02-09 20:26:17,413 done!
+2025-02-09 20:26:17,426 ***** Running evaluation *****
+2025-02-09 20:26:17,426   Num examples = 1043
+2025-02-09 20:26:17,426   Batch size = 32
+2025-02-09 20:26:54,445 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-09 20:26:54,599 device: cuda n_gpu: 1
+2025-02-09 20:26:54,620 Writing example 0 of 1043
+2025-02-09 20:26:54,620 *** Example ***
+2025-02-09 20:26:54,620 guid: dev-0
+2025-02-09 20:26:54,620 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-09 20:26:54,620 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:54,620 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:54,620 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-09 20:26:54,620 label: 1
+2025-02-09 20:26:54,620 label_id: 1
+2025-02-09 20:26:54,694 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-09 20:26:54,895 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny/pytorch_model.bin
+2025-02-09 20:26:55,048 loading model...
+2025-02-09 20:26:55,055 done!
+2025-02-09 20:26:55,066 ***** Running evaluation *****
+2025-02-09 20:26:55,066   Num examples = 1043
+2025-02-09 20:26:55,066   Batch size = 32
+2025-02-09 20:26:55,865 ***** Eval results *****
+2025-02-09 20:26:55,865   eval_loss = 0.5608428346388268
+2025-02-09 20:26:55,865   mcc = 0.31908153035600473
+2025-02-10 11:34:35,281 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-10 11:34:35,431 device: cuda n_gpu: 1
+2025-02-10 11:34:35,453 Writing example 0 of 1043
+2025-02-10 11:34:35,454 *** Example ***
+2025-02-10 11:34:35,454 guid: dev-0
+2025-02-10 11:34:35,454 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-10 11:34:35,454 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-10 11:34:35,454 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-10 11:34:35,454 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-10 11:34:35,454 label: 1
+2025-02-10 11:34:35,454 label_id: 1
+2025-02-10 11:34:35,533 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-10 11:34:35,738 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny/pytorch_model.bin
+2025-02-10 11:34:35,947 loading model...
+2025-02-10 11:34:35,954 done!
+2025-02-10 11:34:35,966 ***** Running evaluation *****
+2025-02-10 11:34:35,966   Num examples = 1043
+2025-02-10 11:34:35,967   Batch size = 32
+2025-02-10 11:34:36,833 ***** Eval results *****
+2025-02-10 11:34:36,834   eval_loss = 0.5608428346388268
+2025-02-10 11:34:36,834   mcc = 0.31908153035600473
+2025-02-10 11:34:54,771 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-10 11:34:55,013 device: cuda n_gpu: 1
+2025-02-10 11:34:55,033 Writing example 0 of 1043
+2025-02-10 11:34:55,033 *** Example ***
+2025-02-10 11:34:55,033 guid: dev-0
+2025-02-10 11:34:55,033 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-10 11:34:55,034 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-10 11:34:55,034 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-10 11:34:55,034 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-10 11:34:55,034 label: 1
+2025-02-10 11:34:55,034 label_id: 1
+2025-02-10 11:34:55,109 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-10 11:34:55,309 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny/pytorch_model.bin
+2025-02-10 11:34:55,450 loading model...
+2025-02-10 11:34:55,457 done!
+2025-02-10 11:34:55,469 ***** Running evaluation *****
+2025-02-10 11:34:55,469   Num examples = 1043
+2025-02-10 11:34:55,469   Batch size = 32
+2025-02-10 11:34:56,198 ***** Eval results *****
+2025-02-10 11:34:56,198   eval_loss = 0.5608428346388268
+2025-02-10 11:34:56,198   mcc = 0.31908153035600473
+2025-02-11 23:09:13,068 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-11 23:09:13,231 device: cuda n_gpu: 1
+2025-02-11 23:09:13,252 Writing example 0 of 1043
+2025-02-11 23:09:13,253 *** Example ***
+2025-02-11 23:09:13,253 guid: dev-0
+2025-02-11 23:09:13,253 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-11 23:09:13,253 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-11 23:09:13,253 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-11 23:09:13,253 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-11 23:09:13,253 label: 1
+2025-02-11 23:09:13,253 label_id: 1
+2025-02-11 23:09:13,331 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-11 23:09:13,536 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny/pytorch_model.bin
+2025-02-11 23:09:13,705 loading model...
+2025-02-11 23:09:13,712 done!
+2025-02-11 23:09:13,725 ***** Running evaluation *****
+2025-02-11 23:09:13,725   Num examples = 1043
+2025-02-11 23:09:13,725   Batch size = 32
+2025-02-11 23:09:14,518 ***** Eval results *****
+2025-02-11 23:09:14,518   eval_loss = 0.5401119914921847
+2025-02-11 23:09:14,518   mcc = 0.36489312510694105
+2025-02-11 23:09:30,739 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny_theirs', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-11 23:09:30,902 device: cuda n_gpu: 1
+2025-02-11 23:09:30,922 Writing example 0 of 1043
+2025-02-11 23:09:30,923 *** Example ***
+2025-02-11 23:09:30,923 guid: dev-0
+2025-02-11 23:09:30,923 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-11 23:09:30,923 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-11 23:09:30,923 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-11 23:09:30,923 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-11 23:09:30,923 label: 1
+2025-02-11 23:09:30,923 label_id: 1
+2025-02-11 23:10:15,104 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny_theirs', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-11 23:10:15,233 device: cuda n_gpu: 1
+2025-02-11 23:10:15,253 Writing example 0 of 1043
+2025-02-11 23:10:15,253 *** Example ***
+2025-02-11 23:10:15,253 guid: dev-0
+2025-02-11 23:10:15,253 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-11 23:10:15,254 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-11 23:10:15,254 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-11 23:10:15,254 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-11 23:10:15,254 label: 1
+2025-02-11 23:10:15,254 label_id: 1
+2025-02-11 23:10:15,328 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-11 23:10:15,530 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny_theirs/pytorch_model.bin
+2025-02-11 23:10:15,676 loading model...
+2025-02-11 23:10:15,683 done!
+2025-02-11 23:10:15,695 ***** Running evaluation *****
+2025-02-11 23:10:15,695   Num examples = 1043
+2025-02-11 23:10:15,695   Batch size = 32
+2025-02-11 23:10:16,405 ***** Eval results *****
+2025-02-11 23:10:16,405   eval_loss = 0.5413863442160867
+2025-02-11 23:10:16,405   mcc = 0.35798139975838816
+2025-02-14 08:05:30,239 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny_theirs', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-14 08:05:30,385 device: cuda n_gpu: 1
+2025-02-14 08:05:30,413 Writing example 0 of 1043
+2025-02-14 08:05:30,413 *** Example ***
+2025-02-14 08:05:30,413 guid: dev-0
+2025-02-14 08:05:30,413 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-14 08:05:30,413 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:05:30,413 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:05:30,413 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:05:30,413 label: 1
+2025-02-14 08:05:30,413 label_id: 1
+2025-02-14 08:05:30,491 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-14 08:05:30,707 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny_theirs/pytorch_model.bin
+2025-02-14 08:05:30,863 loading model...
+2025-02-14 08:05:30,871 done!
+2025-02-14 08:05:30,883 ***** Running evaluation *****
+2025-02-14 08:05:30,883   Num examples = 1043
+2025-02-14 08:05:30,884   Batch size = 32
+2025-02-14 08:05:31,618 ***** Eval results *****
+2025-02-14 08:05:31,618   eval_loss = 0.5391152988780629
+2025-02-14 08:05:31,618   mcc = 0.36977496722249587
+2025-02-14 08:19:24,218 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny_theirs', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-14 08:19:24,360 device: cuda n_gpu: 1
+2025-02-14 08:19:24,382 Writing example 0 of 1043
+2025-02-14 08:19:24,382 *** Example ***
+2025-02-14 08:19:24,382 guid: dev-0
+2025-02-14 08:19:24,382 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-14 08:19:24,382 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:19:24,382 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:19:24,382 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:19:24,382 label: 1
+2025-02-14 08:19:24,382 label_id: 1
+2025-02-14 08:19:24,462 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-14 08:19:24,676 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny_theirs/pytorch_model.bin
+2025-02-14 08:19:43,154 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny_theirs', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-14 08:19:43,322 device: cuda n_gpu: 1
+2025-02-14 08:19:43,343 Writing example 0 of 1043
+2025-02-14 08:19:43,343 *** Example ***
+2025-02-14 08:19:43,344 guid: dev-0
+2025-02-14 08:19:43,344 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-14 08:19:43,344 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:19:43,344 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:19:43,344 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:19:43,344 label: 1
+2025-02-14 08:19:43,344 label_id: 1
+2025-02-14 08:19:43,424 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-14 08:19:43,638 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny_theirs/pytorch_model.bin
+2025-02-14 08:19:43,789 loading model...
+2025-02-14 08:19:43,796 done!
+2025-02-14 08:19:43,809 ***** Running evaluation *****
+2025-02-14 08:19:43,809   Num examples = 1043
+2025-02-14 08:19:43,809   Batch size = 32
+2025-02-14 08:19:44,517 ***** Eval results *****
+2025-02-14 08:19:44,517   eval_loss = 0.5391152988780629
+2025-02-14 08:19:44,517   mcc = 0.36977496722249587
+2025-02-14 08:19:59,997 The args: Namespace(data_dir='/home/sibyz/PycharmProjects/tinyBertDistill/glue_data/CoLA', teacher_model=None, student_model='/home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny', task_name='cola', output_dir='./out_tiny_val', cache_dir='', max_seq_length=128, do_eval=True, do_lower_case=True, train_batch_size=32, eval_batch_size=32, learning_rate=5e-05, weight_decay=0.0001, num_train_epochs=3.0, warmup_proportion=0.1, no_cuda=False, seed=42, gradient_accumulation_steps=1, aug_train=False, eval_step=50, pred_distill=False, data_url='', temperature=1.0)
+2025-02-14 08:20:00,154 device: cuda n_gpu: 1
+2025-02-14 08:20:00,176 Writing example 0 of 1043
+2025-02-14 08:20:00,177 *** Example ***
+2025-02-14 08:20:00,177 guid: dev-0
+2025-02-14 08:20:00,177 tokens: [CLS] the sailors rode the breeze clear of the rocks . [SEP]
+2025-02-14 08:20:00,177 input_ids: 101 1996 11279 8469 1996 9478 3154 1997 1996 5749 1012 102 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:20:00,177 input_mask: 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:20:00,177 segment_ids: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2025-02-14 08:20:00,177 label: 1
+2025-02-14 08:20:00,177 label_id: 1
+2025-02-14 08:20:00,256 Model config {
+  "_name_or_path": "huawei-noah/TinyBERT_General_4L_312D",
+  "architectures": [
+    "BertForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "cell": {},
+  "classifier_dropout": null,
+  "emb_size": 312,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 312,
+  "initializer_range": 0.02,
+  "intermediate_size": 1200,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 4,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "pre_trained": "",
+  "structure": [],
+  "torch_dtype": "float32",
+  "training": "",
+  "transformers_version": "4.44.2",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+2025-02-14 08:20:00,461 Loading model /home/sibyz/PycharmProjects/tinyBertDistill/DTAD/transformers/nlp/bert_distiller/TinyBERT/out_tiny/pytorch_model.bin
+2025-02-14 08:20:00,649 loading model...
+2025-02-14 08:20:00,656 done!
+2025-02-14 08:20:00,667 ***** Running evaluation *****
+2025-02-14 08:20:00,668   Num examples = 1043
+2025-02-14 08:20:00,668   Batch size = 32
+2025-02-14 08:20:01,373 ***** Eval results *****
+2025-02-14 08:20:01,373   eval_loss = 0.5401119914921847
+2025-02-14 08:20:01,373   mcc = 0.36489312510694105
