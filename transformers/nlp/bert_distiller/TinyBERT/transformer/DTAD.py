@@ -84,9 +84,9 @@ class LossManager:
 class DynamicTemperatureScheduler(nn.Module):
     def __init__(
             self,
-            initial_temperature=8.0,
-            min_temperature=4.0,
-            max_temperature=8,
+            initial_temperature=5.0,
+            min_temperature=1.0,
+            max_temperature=5,
             max_epoch=50,
             curve_len=0.5,
             warmup=20,
